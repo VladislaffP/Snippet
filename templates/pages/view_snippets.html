@@ -26,7 +26,7 @@
                         <th scope="col">ID</th>
                         <th scope="col">Название</th>
                         <th scope="col">Дата создания</th>
-                        <th scope="col">Удалить</th>
+                        <th scope="col">пользователь</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -34,9 +34,12 @@
                     {% for snl in sn %}
                     <tr>
                         <td scope="row">{{ snl.id }}</td>
-                        <td><a href="{% url 'snippet-detail' snl.id %}">{{ snl.name }}</a></td>
+                        <td><a href="{% url 'snippet-detail' snl.id %}">{{ snl.name }}</a>
+                            <a href="{% url 'snippet-delete' snl.id %}"><i style="color: red" class="fa-sharp fa-solid fa-trash"></i></a>
+                        </td>
                         <td>{{ snl.creation_date }}</td>
-                        <td><button type="button" class="btn btn-danger">Удалить запись</button></td>
+                        <td>{{ snl.user }}</td>
+                        <!-- <td><button type="button" class="btn btn-danger">Удалить запись</button></td> -->
                     </tr>
                     {% endfor %}
 
