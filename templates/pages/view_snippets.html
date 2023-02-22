@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load my_tags %}
 {% block content %}
 <!-- Begin page content -->
 
@@ -13,7 +14,23 @@
 
         <div class="row">
             <div class="col">
-                <p>На данной страницы будут отображаться все созданные сниппеты.</p>
+                <p>На данной странице будут отображаться все созданные сниппеты.</p>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                    <form action="" method="get">
+                        <select name="lang">
+                            <option {% if lang == 'py' %} selected {% endif %} value="py">python</option>
+                            <option {% if lang == 'js' %} selected {% endif %} value="js">JavaScript</option>
+                            <option {% if lang == 'cpp' %} selected {% endif %} value="cpp">C++</option>
+                        </select>
+                        <button type="submit">Применить</button>
+                        <a href="...">Сброс</a>
+                    </form>
+                <p>На данной странице будут отображаться все созданные сниппеты.</p>
                 <hr>
             </div>
         </div>
@@ -25,6 +42,7 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Название</th>
+                        <th scope="col">Язык</th>
                         <th scope="col">Дата создания</th>
                         <th scope="col">пользователь</th>
                     </tr>
@@ -37,6 +55,7 @@
                         <td><a href="{% url 'snippet-detail' snl.id %}">{{ snl.name }}</a>
                             <a href="{% url 'snippet-delete' snl.id %}"><i style="color: red" class="fa-sharp fa-solid fa-trash"></i></a>
                         </td>
+                        <td>{{ snl.lang }}</td>
                         <td>{{ snl.creation_date }}</td>
                         <td>{{ snl.user }}</td>
                         <!-- <td><button type="button" class="btn btn-danger">Удалить запись</button></td> -->
