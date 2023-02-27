@@ -37,16 +37,21 @@ def snippets_page(request):
     #    sn = Snippet.objects.filter(user__username=None)
     #else:
     #    sn = Snippet.objects.filter(user__username=username)
-    sn = Snippet.objects.filter(is_public=True).order_by("-name")
+    #sn = Snippet.objects.filter(is_public=True).order_by("-name")
+    snippets = Snippet.objects.all()
     lang = request.GET.get("lang")
+    sort = request.GET.get("sort")
     print(lang)
     if lang:
-        sn = sn.filter(lang=lang)
+        snippets = snippets.filter(lang=lang)
+    if sort:
+        snippets = snippets.order_by(sort)
     #cnt = Snippet.objects.count()
-    cnt = sn.count()
+    cnt = snippets.count()
     context = {
-        "sn": sn,
+        "sn": snippets,
         "cnt": cnt,
+        'sort': sort,
         'lang': lang
     }
     return render(request, 'pages/view_snippets.html', context)

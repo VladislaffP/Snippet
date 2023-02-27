@@ -39,13 +39,27 @@
             <div class="col">
                 <table class="table table-striped">
                     <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Название</th>
-                        <th scope="col">Язык</th>
-                        <th scope="col">Дата создания</th>
-                        <th scope="col">пользователь</th>
-                    </tr>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">
+                                {% if sort == 'name' %}
+                                    <a href="?sort=-name"> Название </a>
+                                {% elif sort == '-name' %}
+                                    <a href="?sort=name"> Название </a>
+                                {% else %}
+                                    <a href="?sort=name"> Название </a>
+                                {% endif %}
+
+                                {% if sort == 'name' %}
+                                    <i class="fa-solid fa-caret-up"></i>
+                                {% elif sort == '-name' %}
+                                    <i class="fa-solid fa-caret-down"></i>
+                                {% endif %}
+                            </th>
+                            <th scope="col">Язык</th>
+                            <th scope="col">Дата создания</th>
+                            <th scope="col">Автор</th>
+                        </tr>
                     </thead>
                     <tbody>
 
@@ -57,7 +71,7 @@
                         </td>
                         <td>{{ snl.lang }}</td>
                         <td>{{ snl.creation_date }}</td>
-                        <td>{{ snl.user }}</td>
+                        <td>{{ snl.user | is_empty:"аноним" }}</td>
                         <!-- <td><button type="button" class="btn btn-danger">Удалить запись</button></td> -->
                     </tr>
                     {% endfor %}

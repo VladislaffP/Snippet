@@ -15,6 +15,9 @@ class Snippet(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True)
     is_public = models.BooleanField(default=True)
 
+    def __str__(self):
+        return f"Snippet: {self.name}"
+
 class Comment(models.Model):
    text = models.TextField(max_length=1000)
    creation_date = models.DateTimeField(auto_now=True)
