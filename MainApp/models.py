@@ -20,7 +20,9 @@ class Snippet(models.Model):
     lang = models.ForeignKey(to=Language, on_delete=models.PROTECT, null=True)
     code = models.TextField(max_length=5000)
     creation_date = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE,
+                             blank=True, null=True, related_name='snippets')
+    like = models.ManyToManyField(to=User, related_name="likes")
     is_public = models.BooleanField(default=True)
 
     def __str__(self):
@@ -29,7 +31,7 @@ class Snippet(models.Model):
 class Comment(models.Model):
    text = models.TextField(max_length=1000)
    creation_date = models.DateTimeField(auto_now=True)
-   author = models.ForeignKey(to=User, on_delete=models.CASCADE)
+   author = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='comments')
    snippet = models.ForeignKey(to=Snippet,
                                on_delete=models.CASCADE,
                                related_name="comments")
